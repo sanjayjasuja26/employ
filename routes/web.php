@@ -11,10 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
+Route::get('/', 'DefaultController@index');
 
-Route::get('/home', 'HomeController@index');
+
+/*
+|--------------------------------------------------------------------------
+| admin pannel
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+
+Route::get('/', 'Admin\AdminController@index');
+Route::get('/manage', 'Admin\AdminController@manageuser');
+
+
+});
